@@ -22,13 +22,13 @@ const App = () => {
     <Router>
       <Routes>
         {/* ✅ Redirect root ("/") to login */}
+          <Route path="user-management" element={<UserManagement />} />
+          <Route path="property-management" element={<PropertyManagement />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Manager routes */}
         <Route path="/manager" element={<ManagerLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="user-management" element={<UserManagement />} />
-          <Route path="property-management" element={<PropertyManagement />} />
           <Route path="rental-transactions" element={<RentalTransactions />} />
           <Route path="sale-transactions" element={<SaleTransactions />} />
           <Route path="scheduling" element={<Scheduling />} />
