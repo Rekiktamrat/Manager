@@ -5,11 +5,11 @@ import { editUser } from "../../store/user/userSlice";
 const EditUser = ({ setIsEdit, selectedUser }) => {
   const dispatch = useDispatch();
 
-  const [userDetails, setUserDetails] = useState({  
+  const [userDetails, setUserDetails] = useState({
     name: selectedUser?.name || "",
     email: selectedUser?.email || "",
     phone: selectedUser?.phone || "",
-    blocked: selectedUser?.blocked || false,
+    status: selectedUser?.status || "",
   });
 
   const handleChange = (e) => {
@@ -17,16 +17,18 @@ const EditUser = ({ setIsEdit, selectedUser }) => {
     setUserDetails({ ...userDetails, [name]: value });
   };
 
-  const handleDropdownChange = (e) => {
-    setUserDetails({ ...userDetails, blocked: e.target.value === "true" });
-  };
+  // const handleDropdownChange = (e) => {
+  //   setUserDetails({ ...userDetails, blocked: e.target.value === "true" });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // userDetails.blocked ? "blocked" : "active";
     const data = {
-      id: selectedUser.id,
+      id: selectedUser._id,
       data: userDetails,
     };
+    console.log(data);
     dispatch(editUser(data));
     setIsEdit(false);
   };
@@ -75,13 +77,13 @@ const EditUser = ({ setIsEdit, selectedUser }) => {
           <label className="block text-sm font-medium">Blocked:</label>
           <select
             name="blocked"
-            value={userDetails.blocked ? "true" : "false"}
-            onChange={handleDropdownChange}
+            value={userDetails.status}
+            onChange={handleChange}
             className="border p-2 w-full rounded"
             required
           >
-            <option value="false">Active</option>
-            <option value="true">Blocked</option>
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
           </select>
         </div>
 

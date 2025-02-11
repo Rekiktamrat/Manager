@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FiEye, FiEdit2, FiTrash2, FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersbyRegion, deleteUser, editUser } from "../../store/user/userSlice";
+import {
+  getUsersbyRegion,
+  deleteUser,
+  editUser,
+} from "../../store/user/userSlice";
 import EditUser from "./EditUser";
 import ViewUser from "./ViewUser";
 import DeleteUser from "./DeleteUser";
@@ -46,10 +50,12 @@ const customModalStyles = {
 
 const UserManagement = () => {
   const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(getUsersbyRegion())
-  },[])
-  const { users,totalUsers,activeUsers,blockedUsers } = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(getUsersbyRegion());
+  }, []);
+  const { users, totalUsers, activeUsers, blockedUsers } = useSelector(
+    (state) => state.user
+  );
 
   const [isView, setIsView] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -63,9 +69,9 @@ const UserManagement = () => {
   // const filteredUsers = users.filter((user) => {
   //   const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
   //                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
-  //   const matchesStatus = statusFilter === "all" || 
-  //                         (statusFilter === "active" && !user.blocked) ||
-  //                         (statusFilter === "blocked" && user.blocked);
+  //   const matchesStatus = statusFilter === "all" ||
+  //                         (statusFilter === "active" && !user.status) ||
+  //                         (statusFilter === "blocked" && user.status);
   //   return matchesSearch && matchesStatus;
   // });
 
@@ -83,25 +89,25 @@ const UserManagement = () => {
     setSelectedUser(user);
     setIsDelete(true);
   };
-  
-const mockData = {
-  totalUsers: {
-    count: 4562,
-    message: "431 more to break last month's record",
-  },
-  activeUsers: {
-    count: 2356,
-    today: "3k",
-    week: "3k",
-    month: "3k",
-    target: "3k/month",
-  },
-  blockedUsers: {
-    count: 2206,
-    today: "3k",
-    target: "3k/month",
-  }, 
-};
+
+  const mockData = {
+    totalUsers: {
+      count: 4562,
+      message: "431 more to break last month's record",
+    },
+    activeUsers: {
+      count: 2356,
+      today: "3k",
+      week: "3k",
+      month: "3k",
+      target: "3k/month",
+    },
+    blockedUsers: {
+      count: 2206,
+      today: "3k",
+      target: "3k/month",
+    },
+  };
 
   return (
     <div className="p-10">
@@ -116,8 +122,6 @@ const mockData = {
               <p className="text-2xl font-bold text-gray-800">
                 {/* {mockData.totalUsers.count.toLocaleString()} */}
                 {totalUsers}
-
-
               </p>
               <p className="text-sm text-gray-500">
                 {/* {mockData.totalUsers.message} */}
@@ -132,7 +136,7 @@ const mockData = {
           <div className="mt-2">
             <p className="text-2xl font-bold text-gray-800">
               {/* {mockData.activeUsers.count.toLocaleString()} */}
-            {activeUsers}
+              {activeUsers}
             </p>
             <p className="text-sm text-gray-500">
               {/* Target: {mockData.activeUsers.target} */}
@@ -183,27 +187,53 @@ const mockData = {
         <table className="table-auto w-full text-left">
           <thead className="bg-gray-100">
             <tr>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">ID</th>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">Name</th>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">Email</th>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">Phone</th>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">Blocked</th>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">Created</th>
-              <th className="border px-6 py-4 text-sm font-medium text-gray-600">Actions</th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                ID
+              </th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                Name
+              </th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                Email
+              </th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                Phone
+              </th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                Blocked
+              </th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                Created
+              </th>
+              <th className="border px-6 py-4 text-sm font-medium text-gray-600">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {users?.map((user) => (
               <tr key={user.id} className="border-b hover:bg-gray-50">
-                <td className="border px-6 py-4 text-sm text-gray-700">{user.id}</td>
-                <td className="border px-6 py-4 text-sm text-gray-700">{user.name}</td>
-                <td className="border px-6 py-4 text-sm text-gray-700">{user.email}</td>
-                <td className="border px-6 py-4 text-sm text-gray-700">{user.phone}</td>
-                <td className={`border px-6 py-4 text-sm ${user.blocked ? "text-red-500" : "text-green-500"}`}>
-                  {user.blocked ? "Blocked" : "Active"}
+                <td className="border px-6 py-4 text-sm text-gray-700">
+                  {user.id}
                 </td>
                 <td className="border px-6 py-4 text-sm text-gray-700">
-                  {new Date(user.created_at).toLocaleString()}
+                  {user.name}
+                </td>
+                <td className="border px-6 py-4 text-sm text-gray-700">
+                  {user.email}
+                </td>
+                <td className="border px-6 py-4 text-sm text-gray-700">
+                  {user.phone}
+                </td>
+                <td
+                  className={`border px-6 py-4 text-sm ${
+                    user.status ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {user.status ? "Active" : "Blocked"}
+                </td>
+                <td className="border px-6 py-4 text-sm text-gray-700">
+                  {new Date(user.createdAt).toLocaleString()}
                 </td>
                 <td className="border px-6 py-4 text-sm text-gray-700">
                   <button

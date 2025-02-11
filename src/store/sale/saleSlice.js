@@ -36,21 +36,19 @@ const saleSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Fetch all sales
-      
+
       .addCase(getTransactionsbyregion.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(getTransactionsbyregion.fulfilled, (state, action) => {
         state.loading = false;
-        state.sales = action.payload.data;
+        state.sales = action.payload;
       })
       .addCase(getTransactionsbyregion.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-
-  
+      });
   },
 });
 

@@ -42,14 +42,13 @@ const transactionSlice = createSlice({
       })
       .addCase(getTransactionsbyregion.fulfilled, (state, action) => {
         state.loading = false;
-        state.rents = action.payload.data;
+        state.rents = action.payload;
+        console.log(action.payload);
       })
       .addCase(getTransactionsbyregion.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-
-  
+      });
   },
 });
 

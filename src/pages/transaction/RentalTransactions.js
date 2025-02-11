@@ -40,8 +40,13 @@ const RentalTransactions = () => {
 
   return (
     <div className="p-10 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6"onClick={() => console.log(rents)}>Rental Transactions</h1>
-      
+      <h1
+        className="text-2xl font-bold mb-6"
+        onClick={() => console.log(rents)}
+      >
+        Rental Transactions
+      </h1>
+
       <div className="flex space-x-4 mb-4">
         <input
           type="text"
@@ -61,7 +66,7 @@ const RentalTransactions = () => {
           <option value="high">High (&gt; $1500)</option>
         </select>
       </div>
-      
+
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -70,7 +75,9 @@ const RentalTransactions = () => {
         <table className="w-full bg-white shadow-md rounded-lg">
           <thead>
             <tr className="bg-blue-700 text-white">
-              <th className="px-4 py-2">Property Name</th>
+              <th className="px-4 py-2" onClick={() => console.log(rents)}>
+                Property Name
+              </th>
               <th className="px-4 py-2">Renter Name</th>
               <th className="px-4 py-2">Price</th>
               <th className="px-4 py-2">Actions</th>
@@ -78,13 +85,15 @@ const RentalTransactions = () => {
           </thead>
           <tbody>
             {rents?.map((transaction) => (
-              <tr key={transaction.id}>
-                <td className="px-4 py-2">{transaction.property.title}</td>
-                <td className="px-4 py-2">{transaction.buyer.name}</td>
-                <td className="px-4 py-2">${transaction.price}</td>
+              <tr key={transaction._id}>
+                <td className="px-4 py-2">{transaction?.property?.title}</td>
+                <td className="px-4 py-2">{transaction?.buyer?.name}</td>
+                <td className="px-4 py-2">${transaction.amount}</td>
                 <td className="px-4 py-2">
                   <button
-                    onClick={() => console.log("View details for:", transaction.id)}
+                    onClick={() =>
+                      console.log("View details for:", transaction.id)
+                    }
                     className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
                   >
                     View

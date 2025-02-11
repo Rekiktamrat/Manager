@@ -17,7 +17,9 @@ export const getUsersbyRegion = createAsyncThunk(
     try {
       return await userService.getUsersbyRegion();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -28,9 +30,10 @@ export const deleteUser = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       return await userService.deleteUser(id);
-
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -42,7 +45,9 @@ export const editUser = createAsyncThunk(
     try {
       return await userService.editUser(updatedUser);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -71,9 +76,9 @@ export const userSlice = createSlice({
         state.isError = false;
         state.message = "User fetched successfully!";
         state.users = action.payload.users;
-        state.totalUsers = action.payload.total_users;
-        state.activeUsers = action.payload.active_users;
-        state.blockedUsers = action.payload.blocked_users;
+        state.totalUsers = action.payload.totalUsers;
+        state.activeUsers = action.payload.activeUsers;
+        state.blockedUsers = action.payload.blockedUsers;
       })
       .addCase(getUsersbyRegion.rejected, (state, action) => {
         state.isLoading = false;
@@ -81,11 +86,8 @@ export const userSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         toast.error(action.payload);
-        
       })
 
-
-    
       // Handle deleting a user
       .addCase(deleteUser.pending, (state) => {
         state.isLoading = true;
@@ -115,10 +117,11 @@ export const userSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = "User updated successfully!";
-        const index = state.users.findIndex((p) => p.id === action.payload.id);
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
+        // console.log(action.payload);
+        // const index = state.users.findIndex((p) => p._id === action.payload.id);
+        // if (index !== -1) {
+        //   state.users[index] = action.payload;
+        // }
         toast.success("User updated successfully!");
       })
       .addCase(editUser.rejected, (state, action) => {

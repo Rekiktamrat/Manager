@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlices";
 import propertyReducer from "./property/propertySlice";
-import transactionReducer from "./transaction/transactionSlice";  
+import transactionReducer from "./transaction/transactionSlice";
 import userReducer from "./user/userSlice";
 import saleReducer from "./sale/saleSlice";
-
+import serviceReducer from "./schedulings/schedulingSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +12,7 @@ export const store = configureStore({
     auth: authReducer,
     sale: saleReducer,
     user: userReducer,
-    transaction: transactionReducer
-    },
+    transaction: transactionReducer,
+    service: serviceReducer,
+  },
 });

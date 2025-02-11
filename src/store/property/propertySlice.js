@@ -17,7 +17,9 @@ export const getAllProperties = createAsyncThunk(
     try {
       return await propertyService.getAllProperties();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -27,7 +29,9 @@ export const getPropertiesbyRegion = createAsyncThunk(
     try {
       return await propertyService.getPropertiesbyRegion();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -38,9 +42,10 @@ export const deleteProperty = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       return await propertyService.deleteProperty(id);
-
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -52,7 +57,9 @@ export const editProperty = createAsyncThunk(
     try {
       return await propertyService.editProperty(updatedProperty);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -81,9 +88,9 @@ export const propertySlice = createSlice({
         state.isError = false;
         state.message = "Properties fetched successfully!";
         state.properties = action.payload.properties;
-        state.totalProperties = action.payload.total_properties;
-        state.totalSales = action.payload.total_sales;
-        state.totalRents = action.payload.total_rent;
+        state.totalProperties = action.payload.totalProperties;
+        state.totalSales = action.payload.saleProperties;
+        state.totalRents = action.payload.rentProperties;
       })
       .addCase(getPropertiesbyRegion.rejected, (state, action) => {
         state.isLoading = false;
@@ -91,9 +98,7 @@ export const propertySlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         toast.error(action.payload);
-        
       })
-
 
       .addCase(getAllProperties.pending, (state) => {
         state.isLoading = true;
@@ -103,7 +108,7 @@ export const propertySlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = "Properties fetched successfully!";
-        console.log(action.payload)
+        console.log(action.payload);
         state.properties = action.payload.data;
       })
       .addCase(getAllProperties.rejected, (state, action) => {
@@ -114,9 +119,6 @@ export const propertySlice = createSlice({
         toast.error(action.payload);
       })
 
-
-
-
       // Handle deleting a property
       .addCase(deleteProperty.pending, (state) => {
         state.isLoading = true;
@@ -126,7 +128,9 @@ export const propertySlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = "Property deleted successfully!";
-        state.properties = state.properties.filter((p) => p.id !== action.payload);
+        state.properties = state.properties.filter(
+          (p) => p.id !== action.payload
+        );
         toast.success("Property deleted successfully!");
       })
       .addCase(deleteProperty.rejected, (state, action) => {
@@ -146,7 +150,9 @@ export const propertySlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = "Property updated successfully!";
-        const index = state.properties.findIndex((p) => p.id === action.payload.id);
+        const index = state.properties.findIndex(
+          (p) => p.id === action.payload.id
+        );
         if (index !== -1) {
           state.properties[index] = action.payload;
         }
