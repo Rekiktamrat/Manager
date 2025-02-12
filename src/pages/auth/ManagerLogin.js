@@ -17,7 +17,7 @@ const ManagerLogin = () => {
      
       dispatch(managerLogin({
         email,password
-      }))
+      }).then(navigate("/manager/user-management")))
                             
   };
 
@@ -25,6 +25,12 @@ const ManagerLogin = () => {
   const handleSignUp = () => {
     navigate('/signup'); // Redirect to Signup page
   };
+  
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     navigate("/manager/user-management");
+  //   }
+  // }, [isSuccess]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 flex justify-center items-center">
