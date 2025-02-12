@@ -17,7 +17,7 @@ const ManagerLogin = () => {
      
       dispatch(managerLogin({
         email,password
-      }).then(navigate("/manager/user-management")))
+      }).then(navigate("/manager/dashboard")))
                             
   };
 
